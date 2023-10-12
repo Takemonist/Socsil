@@ -12,7 +12,7 @@ window.onload = (event)=>{
 		const tokens = tokenizer.tokenize(story);
 		tokens.forEach((token)=>{
 			console.log(token);
-			if(token.pos == "名詞" && token.pos_detail_1 == "一般"){
+			if(token.pos == "助詞" /*&& token.pos_detail_1 == "一般"*/){
 				ids.push(token.word_id);// IDを追加する
 				names.push(token.surface_form);// 名詞を追加する
 			}
