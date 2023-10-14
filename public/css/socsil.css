@@ -1,0 +1,96 @@
+/* Reset some default styles */
+body {
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+
+
+/* Center the content */
+#popup-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+
+/* Style the toggle buttons container */
+#toggle-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 10px;
+}
+
+/* Style the individual toggle buttons */
+.toggle {
+  width: 10%; /* 6つのトグルボタンが等間隔になるように調整 */
+  margin: 0.5%;
+  height: 20px;
+  padding: 8px ;
+  text-align: center;
+  cursor: pointer;
+  border: 2px solid #0074d9;
+  color: #0074d9;
+  background-color: #fff;
+  font-size: 16px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.toggle.active {
+  background-color: #0074d9;
+  color: #fff;
+}
+
+/* Style the search input and button */
+#searchInput {
+  width: 20%;
+  height:6%;
+  /* 上辺10px、右側20px、下辺15px、左側30pxの余白を指定 */
+  margin: 3% 40% auto 40%;
+  padding: 0.7%;
+  font-size: 14px;
+  text-align: center;
+}
+
+#searchButton {
+  width: 20%;
+  height: 9%;
+  margin: 2% 40% auto 41%;
+  padding: 0.7%;
+  text-align: center;
+  cursor: pointer;
+  background-color: #0088ff;
+  color: #fff;
+  font-size: 22px;
+  border: none;
+  cursor: pointer;
+}
+
+#searchButton:hover {
+  background-color: #0056a3;
+  cursor: default;
+}
+
+#searchHistory {
+  width: 80%;
+  height: 9%;
+  background-color: #f2f2f2; /* 背景色を灰色に設定 */
+  padding: 10px; /* 内部余白を追加 */
+  border: 1px solid #ddd; /* ボーダーを追加 */
+  border-radius: 5px; /* ボーダーの角を丸める */
+  margin-top: 20px; /* 上部のマージンを追加 */
+  font-size: 15px;
+  margin: 2% 10% auto 11%;
+}
+
+.history {
+  list-style-type: square; /* リストアイテムのマーカーを正方形にする */
+  margin: 5px 0; /* リストアイテム間の上下のマージンを追加 */
+  padding: 3px; /* リストアイテムの内部余白を追加 */
+  font-size: 15px;
+}

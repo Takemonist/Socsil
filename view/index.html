@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Socsil</title>
+		<link rel="stylesheet" type="text/css" href="/public/css/socsil.css">
+	</head>
+	<body>
+		<div id="toggle-container">
+			<div id="what" class="toggle"><b>What</b></div>
+			<div id="when" class="toggle"><b>When</b></div>
+			<div id="where" class="toggle"><b>Where</b></div>
+			<div id="who" class="toggle"><b>Who</b></div>
+			<div id="why" class="toggle"><b>Why</b></div>
+			<div id="how" class="toggle"><b>How</b></div>
+		</div>
+		<div>
+			<input type="text" id="searchInput" placeholder="Enter search term">
+		</div>
+		<div>
+			<button id="searchButton">Search</button>
+		</div>
+		<div id="results-container"></div>
+		<div id="searchHistory">
+			<h2>Search History</h2>
+			<ul id="historyList">
+			  <!-- 例：<li>検索クエリ 1</li>※jsで<li>要素をこのリストに追加する必要あり。実装しました -->
+			</ul>
+		</div>
+		<div id="tips">
+			<h3>Tips</h3>
+			主な組み合わせ how+where 行き方
+		</div>
+		<script src="/public/js/kuromoji.js"></script>
+		<script src="/public/js/script.js"></script>
+	</body>
+</html>
