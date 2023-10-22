@@ -4,6 +4,23 @@ const story = "昔々、あるところにお爺さんとお婆さんが住ん�
 const apiKey = 'AIzaSyCkW1quG7BBO92_8IPJc9KKRz6i88rPiFM';
 const cx = '4783df8e532fc4495';
 
+// パネルとボタンへの参照を取得
+const searchHistoryPanel = document.getElementById("searchHistoryPanel");
+const toggleSearchHistoryButton = document.getElementById("toggleSearchHistory");
+
+
+// パネルを切り替える関数
+function toggleSearchHistory() {
+    if (searchHistoryPanel.style.left === "0px") {
+        searchHistoryPanel.style.left = "-300px";
+    } else {
+        searchHistoryPanel.style.left = "0px";
+    }
+}
+
+// ボタンにクリックイベントハンドラをアタッチ
+toggleSearchHistoryButton.addEventListener("click", toggleSearchHistory);
+
 var when = document.getElementById('when');
 var where = document.getElementById('where');
 var who = document.getElementById('who');
@@ -11,6 +28,8 @@ var what = document.getElementById('what');
 var why = document.getElementById('why');
 var how = document.getElementById('how');
 var search = document.getElementById('searchButton');
+var searchInput = document.getElementById('searchInput');
+
 
 function toggleButton(button) {
 	// ボタンの状態を切り替える
@@ -24,6 +43,7 @@ function toggleButton(button) {
 		console.log(button.id + " activated");
 }
 }
+
 
 when.addEventListener('click', function() {
 	toggleButton(when);
@@ -84,7 +104,7 @@ search.addEventListener('click', function() {
 const resultsContainer = document.getElementById('results-container');
 function display_results(res) {
     resultsContainer.innerHTML = '';
-    res.title.forEach(item => {
+    res.texts.forEach(item => {
 			const resultDiv = document.createElement('div');
 			resultDiv.innerHTML = `${item}`;
 			resultsContainer.appendChild(resultDiv);

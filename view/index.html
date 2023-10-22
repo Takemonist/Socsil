@@ -5,13 +5,30 @@
 		<title>Socsil</title>
 		<link rel="stylesheet" type="text/css" href="/public/css/socsil.css">
 	</head>
-	<body>
+	<body>	
+		<div id="searchHistoryPanel" class="hidden">
+			<h2>Search History</h2>
+			<ul id="historyList">
+				<!-- 検索履歴アイテムはJavaScriptを使用してここに追加されます -->
+			</ul>
+		</div>
+		<button id="toggleSearchHistory">
+			<span class="bar"></span>
+			<span class="bar"></span>
+			<span class="bar"></span>
+		</button>
+		<div>
+			<img src="/public/img/socsil_scan.jpg">
+		</div>
 		<div>
 			<input type="text" id="searchInput" placeholder="Enter search term">
 		</div>
 		<div>
 			<button id="searchButton">Search</button>
 		</div>
+
+		
+		
 		<div id="toggle-container">
 			<div id="what" class="toggle"><b>What</b></div>
 			<div id="when" class="toggle"><b>When</b></div>
@@ -21,12 +38,6 @@
 			<div id="how" class="toggle"><b>How</b></div>
 		</div>
 		<div id="results-container">
-		</div>
-		<div id="searchHistory">
-			<h2>Search History</h2>
-			<ul id="historyList">
-			  <!-- 例：<li>検索クエリ 1</li>※jsで<li>要素をこのリストに追加する必要あり。実装しました -->
-			</ul>
 		</div>
 		<div id="tips">
 			<h3>Tips</h3>

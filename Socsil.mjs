@@ -41,36 +41,32 @@ app.post('/auth/', async (req, res) => {
         json: true,
     };*/
     const promises = [];
-    const titles = [];
+    const texts = [];
     req.body.forEach(url => {
         const promise = fetch(url).then(res => res.text()).then(html => {
             const dom = new JSDOM(html);
             const title = dom.window.document.title;
-            titles.push(title);
+            const text = htmlToText(html);
+            console.log(text);
+            texts.push(text);
         }).catch(err => console.error(err));
         promises.push(promise);
     });
     await Promise.all(promises);
-    res.send(JSON.stringify({title : titles}));
-    /*request(options, function(error, response, body) {
-        req.body.forEach(body => {
-            fetch(body).then(function (response) {
-                // The API call was successful!
-                return response.text();
-            }).then(function (html) {
-                //console.log(html);
-                // This is the HTML from our response as a text string
-                //console.log(html);
-                const dom = new JSDOM(html);
-                // get element
-                const text = dom.window.document.title;
-                titles.push(text);
-                console.log(body + ":" + text);
-            }).catch(function (err) {
-                // There was an error
-                console.warn('Something went wrong.', err);
-            });
-        });
-    });*/
+    res.send(JSON.stringify({texts : texts}));
+
 });
+  // HTML文字列を引数として受け取る関数
+function htmlToText(html) {
+    const dom = new JSDOM(html);
+    let regex =/<script[^>]*>[\s\S]*?<\/script>|<[^>]*>|\s/g;
+    // HTMLタグを空文字に置換する
+    let text = html.replace(regex, "");
+    // 特殊文字をデコードするための仮想的なDOM要素を作成する
+    let element = dom.window.document.createElement("div");
+    // 特殊文字を含むテキストを要素のinnerHTMLに設定する
+    element.innerHTML = text;
+    // 要素のtextContentを返す（特殊文字がデコードされる）
+    return element.textContent;
+  }
   
