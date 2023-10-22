@@ -34,15 +34,16 @@ body {
   padding: 8px ;
   text-align: center;
   cursor: pointer;
-  border: 2px solid #0074d9;
-  color: #0074d9;
-  background-color: #fff;
+  border: 2px solid #4F3926;
+  color: #9A7252;
+  background-color: #F2E2CE;
   font-size: 16px;
   transition: background-color 0.3s, color 0.3s;
+  border-radius: 10px; /* 角を丸める */
 }
 
 .toggle.active {
-  background-color: #0074d9;
+  background-color: #ac832a;
   color: #fff;
 }
 
@@ -55,6 +56,7 @@ body {
   padding: 0.7%;
   font-size: 14px;
   text-align: center;
+  border-radius: 10px; /* 角を丸める */
 }
 
 #searchButton {
@@ -64,16 +66,23 @@ body {
   padding: 0.7%;
   text-align: center;
   cursor: pointer;
-  background-color: #0088ff;
+  background-color: #ac7e42;
   color: #fff;
   font-size: 22px;
   border: none;
   cursor: pointer;
+  border-radius: 10px; /* 角を丸める */
+  text-shadow: 2px 2px 2px rgb(70, 54, 3);
 }
 
 #searchButton:hover {
-  background-color: #0056a3;
+  background-color: #8b6a0e;
   cursor: default;
+}
+
+/* Add box shadow to the search input and button for depth */
+#searchInput, #searchButton {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 影を追加 */
 }
 
 #searchHistory {
@@ -93,4 +102,16 @@ body {
   margin: 5px 0; /* リストアイテム間の上下のマージンを追加 */
   padding: 3px; /* リストアイテムの内部余白を追加 */
   font-size: 15px;
+}
+
+#results-container {
+  width: 80%;
+  height: 9%;
+  background-color: #f2f2f2; /* 背景色を灰色に設定 */
+  padding: 10px; /* 内部余白を追加 */
+  border: 1px solid #ddd; /* ボーダーを追加 */
+  border-radius: 5px; /* ボーダーの角を丸める */
+  margin-top: 20px; /* 上部のマージンを追加 */
+  font-size: 15px;
+  margin: 2% 10% auto 11%;
 }

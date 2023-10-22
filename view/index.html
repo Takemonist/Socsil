@@ -6,6 +6,12 @@
 		<link rel="stylesheet" type="text/css" href="/public/css/socsil.css">
 	</head>
 	<body>
+		<div>
+			<input type="text" id="searchInput" placeholder="Enter search term">
+		</div>
+		<div>
+			<button id="searchButton">Search</button>
+		</div>
 		<div id="toggle-container">
 			<div id="what" class="toggle"><b>What</b></div>
 			<div id="when" class="toggle"><b>When</b></div>
@@ -14,13 +20,8 @@
 			<div id="why" class="toggle"><b>Why</b></div>
 			<div id="how" class="toggle"><b>How</b></div>
 		</div>
-		<div>
-			<input type="text" id="searchInput" placeholder="Enter search term">
+		<div id="results-container">
 		</div>
-		<div>
-			<button id="searchButton">Search</button>
-		</div>
-		<div id="results-container"></div>
 		<div id="searchHistory">
 			<h2>Search History</h2>
 			<ul id="historyList">

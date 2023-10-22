@@ -74,7 +74,7 @@ search.addEventListener('click', function() {
 	fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
-					displayTopThreeResults(data.items);
+					display_urls(data.items);
         })
         .catch(error => {
             console.error('検索エラー:', error);
@@ -82,45 +82,41 @@ search.addEventListener('click', function() {
 });
 
 const resultsContainer = document.getElementById('results-container');
-function displayResults(items) {
+function display_results(res) {
     resultsContainer.innerHTML = '';
-
-    if (items && items.length > 0) {
-        items.forEach(item => {
-            const resultDiv = document.createElement('div');
-            resultDiv.innerHTML = `<h3>${item.title}</h3><p>${item.snippet}</p><a href="${item.link}" target="_blank">${item.link}</a>`;
-            resultsContainer.appendChild(resultDiv);
-        });
-    } else {
-        resultsContainer.innerHTML = '検索結果が見つかりませんでした。';
-    }
+    res.title.forEach(item => {
+			const resultDiv = document.createElement('div');
+			resultDiv.innerHTML = `${item}`;
+			resultsContainer.appendChild(resultDiv);
+		});
 }
-function displayTopThreeResults(items) {
+function display_urls(items) {
 	resultsContainer.innerHTML = '';
 
 	if (items && items.length > 0) {
 			// 上位3つの検索結果のURLを取得
-			const topThreeUrls = items.slice(0, 10).map(item => item.link);
-			console.log(JSON.stringify(topThreeUrls, null, 2));
+			const Urls = items.slice(0,2).map(item => item.link);
+			console.log(JSON.stringify(Urls, null, 2));
 			fetch('http://127.0.0.1:3000/auth/', {
 
         method: 'POST',
         headers: {
          'content-type': 'application/json',
         },
-        body: JSON.stringify(topThreeUrls),
+        body: JSON.stringify(Urls),
 
       }).then(response => {
 
        return response.json();
 
       }).then(res => {
-       console.log(res);
+      	console.log(res);
+				console.log(JSON.stringify(res));
+				display_results(res);
+
       }).catch(error => {
 				console.log(error);
       });
-
-
 	} else {
 			resultsContainer.innerHTML = '検索結果が見つかりませんでした。';
 	}
