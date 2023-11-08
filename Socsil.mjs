@@ -5,6 +5,9 @@ import bodyParser from 'body-parser';
 import { JSDOM } from "jsdom";
 import request from 'request';
 import { fileURLToPath } from 'url';
+
+import fetch from 'node-fetch';
+import zlib from 'zlib';
 const app = express();
 
 const apiKey = 'AIzaSyCkW1quG7BBO92_8IPJc9KKRz6i88rPiFM';
@@ -19,15 +22,15 @@ app.use('/public', express.static(__dirname + '/public/js/dict'));
 app.get('/',(req,res)=>{
     res.render('index.html');
 });
-console.log('http://127.0.0.1:3000/');
+console.log('http://127.0.0.1:4000/');
 
-app.listen(3000);
+app.listen(4000);
 
 (async () => {
     const browser = await chromium.launch({ headless: false }); // ここにオプションを設定！
   
     const page = await browser.newPage();
-    await page.goto("http://127.0.0.1:3000/");
+    await page.goto("http://127.0.0.1:4000/");
   })();
 
 app.use(bodyParser.urlencoded({
@@ -35,27 +38,43 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(bodyParser.json());
-app.post('/auth/', async (req, res) => {
-    /*const options = {
-        method: 'GET',
-        json: true,
-    };*/
-    const promises = [];
-    const texts = [];
-    req.body.forEach(url => {
-        const promise = fetch(url).then(res => res.text()).then(html => {
-            const dom = new JSDOM(html);
-            const title = dom.window.document.title;
-            const text = htmlToText(html);
-            console.log(text);
-            texts.push(text);
-        }).catch(err => console.error(err));
-        promises.push(promise);
-    });
-    await Promise.all(promises);
-    res.send(JSON.stringify({texts : texts}));
 
+
+app.post('/query/', async (req, res) => {
+    var API_KEY = `6238329b-3b1c-ea0e-a973-226835408801:fx`
+    var API_URL = `https://api-free.deepl.com/v2/translate`
+    let en_result = '';
+    let ja_result = '';
+    let content = encodeURI('auth_key=' + API_KEY + '&text=' + req.body.query + '&source_lang=JA&target_lang=EN');
+    let translate_ja2en_api = API_URL + '?' + content;
+
+    let response = await fetch(translate_ja2en_api);
+    if (response.ok) {
+        let data = await response.json();
+        console.log(data);
+        let jaText = data.translations[0].text; // JSONからtextを取得
+
+        let responseEn = await query({"question": jaText});
+        console.log(responseEn);
+        en_result = responseEn;
+
+        let en_content = encodeURI('auth_key=' + API_KEY + '&text=' + en_result + '&source_lang=EN&target_lang=JA');
+        let translate_en2ja_api = API_URL + '?' + en_content;
+
+        response = await fetch(translate_en2ja_api);
+        if (response.ok) {
+            data = await response.json();
+            console.log(data);
+            ja_result = data["translations"][0]["text"];
+            console.log(ja_result);
+        } else {
+            throw new Error("Could not reach the API: " + response.statusText);
+        }
+    }
+    res.set('Content-Type', 'application/json');
+    res.json({result: ja_result}); 
 });
+
   // HTML文字列を引数として受け取る関数
 function htmlToText(html) {
     const dom = new JSDOM(html);
@@ -69,4 +88,21 @@ function htmlToText(html) {
     // 要素のtextContentを返す（特殊文字がデコードされる）
     return element.textContent;
   }
+
+  async function query(data) {
+    const response = await fetch(
+        "http://localhost:3000/api/v1/prediction/04173494-eab9-4982-aa7e-f6a6238ca714",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        }
+    );
+    const result = await response.json();
+    return result;
+}
+
+
   

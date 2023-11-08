@@ -26,8 +26,14 @@
 		<div>
 			<button id="searchButton">Search</button>
 		</div>
-
 		
+		<script type="module">
+			import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
+			Chatbot.init({
+					chatflowid: "04173494-eab9-4982-aa7e-f6a6238ca714",
+					apiHost: "http://127.0.0.1:3000",
+			})
+		</script>
 		
 		<div id="toggle-container">
 			<div id="what" class="toggle"><b>What</b></div>
